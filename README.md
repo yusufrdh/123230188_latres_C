@@ -1,9 +1,5 @@
 
 ```markdown
-# Toko Online Premium - Latihan Responsi IF-C
-
-Aplikasi *e-commerce* berbasis Flutter yang dikembangkan untuk Latihan Responsi IF-C. Aplikasi terintegrasi dengan REST API eksternal untuk penyediaan data katalog produk, mengimplementasikan *shared preferences* untuk manajemen sesi pengguna, serta memanfaatkan basis data lokal Hive untuk keranjang belanja yang terisolasi antar-pengguna.
-
 ## Struktur Direktori Proyek
 
 ```text
