@@ -25,35 +25,41 @@ lib/
 
 ```
 
----
+### 2. Penjelasan Fitur Aplikasi
 
-### 2. Penjelasan Aplikasi yang Harus Dibuat
-Aplikasi ini pada dasarnya adalah platform toko online fungsional yang menggabungkan penggunaan *state* jaringan dan *database* lokal. Berikut adalah penjabaran alur dan spesifikasi fiturnya sesuai instruksi soal:
+Aplikasi ini adalah platform toko online premium fungsional yang menggabungkan penggunaan data jaringan secara langsung dan sistem penyimpanan basis data lokal.
 
-* **Sumber Data Produk:** Katalog produk yang ditampilkan aplikasi harus ditarik secara dinamis dari API eksternal publik: `https://dummyjson.com/products`.
-* **Sistem Autentikasi (10 Poin):**
-  * Sebelum mengakses aplikasi, pengguna yang belum memiliki sesi login wajib melewati halaman Login.
-  * **Aturan Login:** Pengguna bebas memasukkan *username* apa saja, namun **password wajib menggunakan NIM Anda**.
-  * *Username* yang berhasil diotentikasi harus disimpan ke dalam *session* (menggunakan `SharedPreferences`) untuk digunakan sebagai pengenal identitas di halaman lain.
-* **Retensi Sesi / *Auto-Login* (5 Poin):**
-  * Jika pengguna menutup aplikasi lalu membukanya kembali dalam kondisi sudah pernah login (belum menekan tombol *logout*), sistem harus langsung mengarahkannya ke halaman utama tanpa meminta login ulang.
-* **Navigasi Utama (5 Poin):**
-  * Halaman utama wajib mengimplementasikan 2 menu pada *Bottom Navigation Bar*, yaitu **Home** dan **Profile**.
-* **Halaman Home (20 Poin):**
-  * Menampilkan informasi *username* pengguna yang saat ini sedang aktif.
-  * Menyediakan tombol aksi menuju halaman **Cart** (Keranjang).
-  * Merender daftar produk yang didapatkan dari API. Jika salah satu item produk ditekan, aplikasi akan melakukan navigasi ke halaman **Detail Produk** dari item yang bersangkutan.
-* **Halaman Detail Produk (20 Poin):**
-  * Menampilkan seluruh informasi terperinci dari produk yang dipilih.
-  * Menyediakan kontrol antarmuka untuk menambah atau mengurangi jumlah barang (*quantity*) dengan batasan matematis ketat: $0 < \text{qty} \le \text{totalQty}$ (ketersediaan stok).
-  * Terdapat tombol **Add to Cart**. Saat ditekan, data produk, identitas *username* yang menekan, dan jumlah *quantity* akan direkam secara persisten ke dalam *local database* **Hive**.
-* **Halaman Cart (20 Poin):**
-  * Menampilkan daftar belanjaan yang spesifik dimiliki oleh *user* aktif.
-  * **Isolasi Data:** Jika *username* A memasukkan produk $x$ dan $y$, maka keranjang hanya menampilkan $x$ dan $y$. Apabila akun di-*logout* dan berganti masuk menggunakan *username* B, isi keranjang harus berubah menyesuaikan data yang sebelumnya dimasukkan oleh akun B.
-  * Setiap baris item di keranjang wajib dilengkapi dengan tombol aksi untuk menghapus produk tersebut dari *database* lokal.
-* **Halaman Profile (10 Poin):**
-  * Menampilkan kembali informasi *username* yang sedang login.
-  * Menyediakan ruang teks deskripsi (bebas diisi catatan atau informasi tambahan apa pun).
-  * Terdapat tombol **Logout** untuk menghapus sesi dan mengembalikan pengguna ke halaman Login.
+a. Sumber Data Produk
+   Katalog produk ditarik secara dinamis dari eksternal API publik: 
+   [https://dummyjson.com/products](https://dummyjson.com/products)
 
-```
+b. Sistem Autentikasi (10 Poin)
+   - Akses Wajib: Pengguna yang belum memiliki sesi aktif diwajibkan melewati portal login sebelum mengakses menu utama.
+   - Kredensial: Username diinputkan secara bebas, namun Password diwajibkan menggunakan identitas NIM asli Anda.
+   - Retensi Sesi: Username aktif disimpan ke dalam cache lokal menggunakan SharedPreferences untuk identifikasi transaksi.
+
+c. Sesi Persisten / Auto-Login (5 Poin)
+   - Apabila pengguna menutup aplikasi dan membukanya kembali dalam kondisi belum menekan tombol logout, sistem akan melewati halaman login dan langsung memuat tampilan beranda utama.
+
+d. Struktur Navigasi (5 Poin)
+   - Antarmuka utama mengimplementasikan Bottom Navigation Bar yang memuat 2 menu utama: Home dan Profile.
+
+e. Halaman Home (20 Poin)
+   - Menampilkan sapaan personal berbasis username aktif.
+   - Menyediakan akses cepat menuju halaman Keranjang Belanja (Cart).
+   - Menampilkan daftar produk premium dari API. Menekan salah satu kartu produk akan mengarahkan pengguna ke rincian spesifik item tersebut.
+
+f. Halaman Detail Produk (20 Poin)
+   - Menyajikan informasi mendalam terkait spesifikasi, harga, dan ketersediaan unit.
+   - Dilengkapi panel kuantitas yang membatasi pesanan secara ketat agar tidak melebihi total persediaan stok yang ada.
+   - Tombol aksi "Tambah ke Keranjang" akan merekam entitas produk, kuantitas, dan kepemilikan username ke dalam basis data lokal Hive.
+
+g. Halaman Keranjang / Cart (20 Poin)
+   - Menampilkan daftar pesanan terenkapsulasi khusus milik pengguna yang sedang aktif.
+   - Isolasi Kepemilikan: Sesi milik Username A tidak akan dapat melihat atau mengakses daftar belanjaan yang ditambahkan oleh Username B, begitu pula sebaliknya.
+   - Menyediakan opsi pembatalan/penghapusan per item langsung dari memori lokal.
+
+h. Halaman Profile (10 Poin)
+   - Menampilkan kartu identitas pengguna aktif.
+   - Menyediakan ruang keterangan penugasan responsi.
+   - Tombol pemutus sesi (Logout) untuk membersihkan otorisasi dan mengembalikan antarmuka ke halaman awal.
